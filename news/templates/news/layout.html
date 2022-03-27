@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            Новини
+        </title>
+        <link href="{% static 'news/static2.css' %}" rel="stylesheet">
+        <link rel="shortcut icon" href="{% static 'news/announcements-icon.png' %}">
+    </head>
+    <body>
+        <div class="top">
+            <div class="logged_name">
+                {% if user.is_authenticated %}
+                    {% if request.user.is_superuser %}
+                    <a href="{% url 'update' %}">Позачергово оновити дані</a>
+                    {% else %}
+                    {% endif %}
+                 Ви залоговані як "{{ request.user }}".
+                {% else %}
+                Ви поки не залоговані...
+                {% endif %}
+            </div>
+
+
+
+            <div id="cont_title">
+                <div class="link"><a href="{% url 'index' %}" class="link2"> Всі новини</a></div>
+                <div class="link"><a href="{% url 'savednews' %}" class="link2"> Збережено</a></div>
+                <div class="link"><a href="{% url 'mylinks' %}" class="link2"> Мої посилання</a></div>
+                {% if user.is_authenticated %}
+                <div class="link"><a href="{% url 'logout' %}" class="link2"> Вийти</a></div>
+                {% else %}
+                <div class="link"><a href="{% url 'login' %}" class="link2"> Авторизація</a></div>
+                <div class="link"><a href="{% url 'register' %}" class="link2"> Реєстрація</a></div>
+                {% endif %}
+                <div class="link"><a href="{% url 'about' %}" class="link2"> Про цей проєкт</a></div>
+
+                <div class="search"> 
+                    
+                    <form method="get" action="{% url 'search' %}">
+                        <input type="text" name="q" placeholder="Приклад пошуку: слово1, слово2, слово3, ..." minlength="2" required  class="searchform">
+                        <input type="submit" value="Пошук" class="button-search">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="bottom-s">
+            {% block body %}
+            {% endblock %}
+        </div>
+
+
+    </body>
+</html>

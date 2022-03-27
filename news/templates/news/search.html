@@ -1,0 +1,21 @@
+{% extends "news/layout.html" %}
+
+{% block body %}
+
+<h2>Результатів пошуку "{{ search_text }}" - {{counter}}:</h2>
+<table>
+    {% for news in result %}
+    <tr>
+        <td class="table_date">{{ news.add_date.date }}</td>
+        <td class="table_site">{{ news.news_site }}</td>
+        <td>
+            {% if user.is_authenticated %} 
+            <a href="{% url 'save' news.news_id %}">[SAVE]</a>
+            {% endif %}
+        </td>
+        <td><a href="{{ news.news_url }}">{{ news.news_title }}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

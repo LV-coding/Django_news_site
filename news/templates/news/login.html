@@ -1,0 +1,20 @@
+{% extends "news/layout.html" %}
+
+{% block body %}
+<div class="error-message">
+    {% if message %}
+    {{ message }}
+    {% endif  %}
+    </div>
+<div>
+<form method="post" action="{% url 'login' %}" class="log-reg">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Логін" class="field-log-reg">
+    <br>
+    <input type="password" name="password" placeholder="Пароль" class="field-log-reg">
+    <br>
+    <input type="submit" class="button-log-reg" value="Залогуватись">
+</form>
+</div>
+
+{% endblock %}

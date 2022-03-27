@@ -1,0 +1,73 @@
+{% extends "news/layout.html" %}
+
+{% block body %}
+<h1 class="title-page" >Всі новини</h1>
+<table>
+    {% for news in page %}
+    <tr>
+        <td class="table_date">{{ news.add_date.date }}</td>
+        <td class="table_site">{{ news.news_site }}</td>
+        <td>
+            {% if user.is_authenticated %} 
+            <a href="{% url 'save' news.news_id %}">[SAVE]</a>
+            {% endif %}
+        </td>
+        <td><a href="{{ news.news_url }}">{{ news.news_title }}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<ul class="paginator">
+{% if page.has_previous %}
+        <li><a href="?index={{page.previous_page_number}}">Попередня</a></li>
+    {% else %}
+{% endif%}
+
+
+
+{% if paginator != 0 %}
+{% for count in paginator.page_range %}
+    {% if count == 1 %}
+
+        {% if count == page.number %}
+            <li ><a href="?index={{count}}" class="active_number_page">{{count}}</a></li>
+        {% else %}
+            <li ><a href="?index={{count}}">{{count}}</a></li>
+        {% endif%}
+        <li>...</li>
+
+    {% else %}
+
+        {% if count == counter_page %}
+
+            {% if count == page.number %}
+                <li ><a href="?index={{count}}" class="active_number_page">{{count}}</a></li>
+            {% else %}
+                <li ><a href="?index={{count}}">{{count}}</a></li>
+            {% endif%}
+            
+        {% else %}
+
+            {% if count == page.number %}
+                <li ><a href="?index={{count}}" class="active_number_page">{{count}}</a></li>
+                    {% if page.has_next %}
+                        <li>...</li>
+                    {% endif %}
+            {% endif %}
+            
+        {% endif%}
+
+    {% endif%}
+{% endfor%}
+{% else %}
+{% endif %}
+
+{% if page.has_next %}
+        <li><a href="?index={{ page.next_page_number}}">Наступна</a></li>
+    {% else %}
+    {% endif %}
+</ul>
+
+
+{% endblock %}

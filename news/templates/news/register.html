@@ -1,0 +1,23 @@
+{% extends "news/layout.html" %}
+
+{% block body %}
+<div class="error-message">
+{% if message %}
+{{ message }}
+{% endif  %}
+</div>
+<div>
+<form method="post" action="{% url 'register' %}" class="log-reg">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Логін" class="field-log-reg">
+    <br>
+    <input type="email" name="email" placeholder="Email" class="field-log-reg">
+    <br>
+    <input type="password" name="password" placeholder="Пароль" class="field-log-reg">
+    <br>
+    <input type="password" name="confirm_password" placeholder="Підтвердження пароля" class="field-log-reg">
+    <br>
+    <input type="submit" class="button-log-reg" value="Зареєструватись">
+</form>
+</div>
+{% endblock %}

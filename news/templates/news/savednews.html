@@ -1,0 +1,22 @@
+{% extends "news/layout.html" %}
+
+{% block body %}
+<h1 class="title-page">Збережені новини</h1>
+{% if user.is_authenticated %}
+<table>
+    {% for news in all_news %}
+    <tr>
+        <td class="table_date">{{ news.news_save.add_date.date }}</td>
+        <td class="table_site">{{ news.news_save.news_site }}</td>
+        <td><a href="{% url 'unsave' news.news_save.news_id %}">[UNSAVE]</a></td>
+        <td><a href="{{ news.news_save.news_url }}">{{ news.news_save.news_title }}</a></td>
+    </tr>
+    {% empty %}
+    Збережені новини відсутні.
+    {% endfor %}
+</table>
+{% else %}
+    {{message}}
+{% endif %}
+
+{% endblock %}

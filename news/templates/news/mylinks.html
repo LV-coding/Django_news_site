@@ -1,0 +1,34 @@
+{% extends "news/layout.html" %}
+
+{% block body %}
+<h1 class="title-page">Мої посилання</h1>
+{% if user.is_authenticated %}
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="edit-link-label">Назва посилання: </div>
+    <input type="text" value="{{link.link_title}}" name="link_title" class="field-link" minlength="1" required >
+    <div class="edit-link-label">Адреса URL:</div>
+    <input type="text" value="{{link.link_url}}" name="link_url" class="field-link" minlength="5" required ><br>
+    <input type="submit" value="Додати" class="button-log-reg">
+</form>
+<br>
+<table>
+    {% for link in all_links %}
+    <tr>
+        <td class="table_date">{{ link.link_add_date }}</td>
+        <td><a href="{% url 'delete_link' link.link_id %}">[DELETE]<a></td>
+        <td> |</td>
+        <td><a href="{% url 'edit_link' link.link_id %}">[EDIT]</a></td>
+        <td> Назва:</td>
+        <td><a href="{{ link.link_url }}">{{ link.link_title }}</a></td>
+    </tr>
+    {% empty %}
+    Збережені посилання відсутні.
+    {% endfor %}
+</table>
+{% else %}
+<p>Для використання цього функціоналу Ви повинні бути залоговані.</p>
+{% endif %}
+
+{% endblock %}

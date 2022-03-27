@@ -1,0 +1,20 @@
+{% extends "news/layout.html" %}
+
+{% block body %}
+<h1 class="title-page">Змінити посилання</h1>
+{% if user.is_authenticated %}
+
+<form method="POST">
+    {% csrf_token %}
+        <div class="edit-link-label">Назва посилання для редагування: </div>
+        <input type="text" value="{{link.link_title}}" name="link_title" class="field-link" minlength="1" required >
+        <div class="edit-link-label">Адреса URL для редагування:</div>
+        <input type="text" value="{{link.link_url}}" name="link_url" class="field-link" minlength="5" required ><br>
+        <input type="submit" value="Зберегти зміни" class="button-log-reg">
+</form>
+<br>
+{% else %}
+<p>Для використання цього функціоналу Ви повинні бути залоговані.</p>
+{% endif %}
+
+{% endblock %}
