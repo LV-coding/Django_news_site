@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5289030048295319"
+     crossorigin="anonymous"></script>
         <meta charset="UTF-8">
         <title>
             Новини
@@ -27,7 +29,8 @@
 
 
             <div id="cont_title">
-                <div class="link"><a href="{% url 'index' %}" class="link2"> Всі новини</a></div>
+                <div class="link"><a href="{% url 'index' %}" class="link2"> Новини</a></div>
+                <div class="link"><a href="{% url 'currency' %}" class="link2"> Валюта</a></div>
                 <div class="link"><a href="{% url 'savednews' %}" class="link2"> Збережено</a></div>
                 <div class="link"><a href="{% url 'mylinks' %}" class="link2"> Мої посилання</a></div>
                 {% if user.is_authenticated %}
