@@ -186,19 +186,22 @@ def currency(request): # in plans...
 
 # Functionality for users to save their links
 def saved_links(request):
-    try:
-        all_links = Link.objects.all().filter(user=request.user).order_by('-link_add_date')
-    except:
-        all_links = []
-    if request.method == 'POST':
-        link_title = request.POST["link_title"]
-        link_url = request.POST["link_url"]
-        link = Link(link_title=link_title, link_url=link_url, user = request.user)
-        link.save()
-        return HttpResponseRedirect(reverse("mylinks"))   
-    return render(request, "news/mylinks.html", {
-        "all_links": all_links
-    })
+    if request.user.is_superuser:
+        try:
+            all_links = Link.objects.all().filter(user=request.user).order_by('-link_add_date')
+        except:
+            all_links = []
+        if request.method == 'POST':
+            link_title = request.POST["link_title"]
+            link_url = request.POST["link_url"]
+            link = Link(link_title=link_title, link_url=link_url, user = request.user)
+            link.save()
+            return HttpResponseRedirect(reverse("mylinks"))   
+        return render(request, "news/mylinks.html", {
+            "all_links": all_links
+        })
+    else:
+        return HttpResponseRedirect(reverse("index"))
 
 
 def delete_link(request, link_id):
@@ -206,6 +209,9 @@ def delete_link(request, link_id):
     if request.user == link.user:
         link.delete()
         return HttpResponseRedirect(reverse("mylinks"))
+    else:
+        return HttpResponseRedirect(reverse("index"))
+
 
 def edit_link(request, link_id):
     link = Link.objects.get(link_id=link_id)
@@ -220,6 +226,8 @@ def edit_link(request, link_id):
             return render(request, "news/edit_link.html", {
                 "link": link
             })
+    else:
+        return HttpResponseRedirect(reverse("index"))
 
     
 
@@ -231,9 +239,12 @@ def create_db_and_start_parser():
     util.create_news_site()
 
     while True:
-        time_sleep = 181
+        time_sleep = 150
 
         util.get_minfin()
+        time.sleep(time_sleep)
+
+        util.get_unian()
         time.sleep(time_sleep)
 
         util.get_e_pravda()

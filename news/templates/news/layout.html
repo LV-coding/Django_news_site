@@ -32,7 +32,12 @@
                 <div class="link"><a href="{% url 'index' %}" class="link2"> Новини</a></div>
                 <div class="link"><a href="{% url 'currency' %}" class="link2"> Валюта</a></div>
                 <div class="link"><a href="{% url 'savednews' %}" class="link2"> Збережено</a></div>
+                
+                {% if request.user.is_superuser %}
                 <div class="link"><a href="{% url 'mylinks' %}" class="link2"> Мої посилання</a></div>
+                {% else %}
+                {% endif %}
+
                 {% if user.is_authenticated %}
                 <div class="link"><a href="{% url 'logout' %}" class="link2"> Вийти</a></div>
                 {% else %}

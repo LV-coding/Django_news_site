@@ -90,11 +90,12 @@ body {
 
 .table_date {
     margin-right: 3px;
+    width: 130px;
+    font-size: 14px;
 }
 
 .table_site {
-    padding-right: 10px;
-    padding-left: 10px;
+    width: 165px;
 }
 
 
@@ -172,4 +173,26 @@ body {
 
 .edit-link-label {
     font-weight: bold;
+}
+
+.currency-container {
+    text-align: center;
+}
+
+.currency-g {
+    text-align: center;
+}
+
+.currency {
+    min-height: 50vh;
+    min-width: 110vh;
+    max-width: 130vh;
+}
+
+
+.link-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
