@@ -15,7 +15,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def index(request):
     all_news = News.objects.all().order_by("-add_date")
-    link_per_page = 20                                      # 25 news in each page
+    link_per_page = 25                                      # 25 news in each page
 
     # If the database is empty. It's need only at start
     try:
