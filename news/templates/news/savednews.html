@@ -6,10 +6,10 @@
 <table>
     {% for news in all_news %}
     <tr>
-        <td class="table_date">{{ news.news_save.add_date.date }}</td>
+        <td class="table_date"><a href="{%url 'date' news.add_date.date %}">{{ news.news_save.add_date.date}}</a></td>
         <td class="table_site">{{ news.news_save.news_site }}</td>
         <td><a href="{% url 'unsave' news.news_save.news_id %}">[UNSAVE]</a></td>
-        <td><a href="{{ news.news_save.news_url }}">{{ news.news_save.news_title }}</a></td>
+        <td class="link-title"><a href="{{ news.news_save.news_url }}">{{ news.news_save.news_title }}</a></td>
     </tr>
     {% empty %}
     Збережені новини відсутні.

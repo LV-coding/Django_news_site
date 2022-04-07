@@ -28,6 +28,9 @@ class News(models.Model):
     def __str__(self):
         return f'{self.news_site}: {self.news_title}'   
 
+    def show_date(self):
+        return self.add_date.strftime('%Y-%m-%d')
+
 
 class SaveNews(models.Model):
     save_id = models.AutoField(primary_key=True)

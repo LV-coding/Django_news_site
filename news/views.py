@@ -229,9 +229,20 @@ def edit_link(request, link_id):
     else:
         return HttpResponseRedirect(reverse("index"))
 
-    
+
+def unknown_page(request, some_text):
+    return render(request,  "news/unknown.html", {
+        "some_text": some_text
+    })
 
 
+def date_view(request, date):
+    list_news = News.objects.all().order_by("-add_date")
+    all_news = (news for news in list_news if news.show_date() == date)
+    return render(request, "news/date.html", {
+        "all_news": all_news,
+        "date": f'{date[-2:]}.{date[-5:-3]}.{date[:4]}'
+    })
 
 
 # This function runs in another thread

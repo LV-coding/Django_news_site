@@ -19,11 +19,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'some_local_secret_key:)' )
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'some_local_secret_key:)' )
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
+DEBUG = os.getenv('DJANGO_DEBUG', True)
 
 ALLOWED_HOSTS = ['*']
 
@@ -107,7 +107,7 @@ AUTH_USER_MODEL = 'news.User'
 
 LANGUAGE_CODE = 'uk' #en-us
 
-TIME_ZONE = 'UTC' 
+TIME_ZONE = 'Europe/Istanbul' 
 
 USE_I18N = True
 

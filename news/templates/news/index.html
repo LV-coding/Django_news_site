@@ -5,7 +5,7 @@
 <table>
     {% for news in page %}
     <tr>
-        <td class="table_date">{{ news.add_date.date }}</td>
+        <td class="table_date"><a href="{%url 'date' news.add_date.date %}">{{ news.add_date.date }}</a></td>
         <td class="table_site">{{ news.news_site }}</td>
         <td>
             {% if user.is_authenticated %} 

@@ -15,8 +15,13 @@ urlpatterns = [
     path('currency', views.currency, name="currency"),
     path('mylinks', views.saved_links, name="mylinks"),
     path('delete_link/<int:link_id>', views.delete_link, name="delete_link"),
-    path('edit_link/<int:link_id>', views.edit_link, name="edit_link")
+    path('edit_link/<int:link_id>', views.edit_link, name="edit_link"),
+    path('date/<date>', views.date_view, name="date"),
+    path('<some_text>', views.unknown_page, name="unknown"), 
 ]
+
+
+
 
 
 

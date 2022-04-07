@@ -16,7 +16,7 @@
 <table>
     {% for link in all_links %}
     <tr>
-        <td class="table_date">{{ link.link_add_date }}</td>
+        <td class="table_date">{{ link.link_add_date.date }}</td>
         <td><a href="{% url 'delete_link' link.link_id %}">[DELETE]<a></td>
         <td> |</td>
         <td><a href="{% url 'edit_link' link.link_id %}">[EDIT]</a></td>
