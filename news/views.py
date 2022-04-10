@@ -1,21 +1,23 @@
 from sys import exec_prefix
 from django.shortcuts import render
 from .models import User, News, SaveNews, Link
-#from .forms import LinkForm
+from functools import lru_cache
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from . import util
-import time
-import math
-import threading
+from time import sleep
+import datetime
+from math import ceil
+from threading import Thread
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger 
+from django.contrib.auth.decorators import login_required
 
-
+@lru_cache(maxsize=None)
 def index(request):
     all_news = News.objects.all().order_by("-add_date")
-    link_per_page = 25                                      # 25 news in each page
+    link_per_page = 40                                      # 25 news in each page
 
     # If the database is empty. It's need only at start
     try:
@@ -38,7 +40,7 @@ def index(request):
 
     try:
         # for render number max page
-        counter_page = math.ceil(len(all_news)/link_per_page)
+        counter_page = ceil(len(all_news)/link_per_page)
     except:
         counter_page = 0
     return render(request, "news/index.html", {
@@ -118,6 +120,7 @@ def saved_news(request):
     })
 
 
+@login_required
 def save_news(request, news_id):
     news = News.objects.get(news_id=news_id)
     list_news = SaveNews.objects.filter(user=request.user, news_save=news)
@@ -133,6 +136,7 @@ def save_news(request, news_id):
     return HttpResponseRedirect(reverse("index"))
 
 
+@login_required
 def unsave_news(request, news_id):
     this_news = News.objects.get(news_id=news_id)
     news = SaveNews.objects.get(user=request.user, news_save=this_news)
@@ -140,6 +144,7 @@ def unsave_news(request, news_id):
     return HttpResponseRedirect(reverse("savednews"))
 
 
+@login_required
 def update(request):
     # This is an admin tool for unscheduled parsing.
     if request.user.is_superuser:
@@ -185,6 +190,7 @@ def currency(request): # in plans...
 
 
 # Functionality for users to save their links
+@login_required
 def saved_links(request):
     if request.user.is_superuser:
         try:
@@ -204,6 +210,7 @@ def saved_links(request):
         return HttpResponseRedirect(reverse("index"))
 
 
+@login_required
 def delete_link(request, link_id):
     link = Link.objects.get(link_id=link_id)
     if request.user == link.user:
@@ -213,6 +220,7 @@ def delete_link(request, link_id):
         return HttpResponseRedirect(reverse("index"))
 
 
+@login_required
 def edit_link(request, link_id):
     link = Link.objects.get(link_id=link_id)
     if request.user == link.user:
@@ -235,46 +243,64 @@ def unknown_page(request, some_text):
         "some_text": some_text
     })
 
-
+@lru_cache(maxsize=None)
 def date_view(request, date):
     list_news = News.objects.all().order_by("-add_date")
     all_news = (news for news in list_news if news.show_date() == date)
     return render(request, "news/date.html", {
         "all_news": all_news,
-        "date": f'{date[-2:]}.{date[-5:-3]}.{date[:4]}'
+        "date": datetime.date(int(date[:4]), int(date[-5:-3]), int(date[-2:]))
     })
 
 
 # This function runs in another thread
 def create_db_and_start_parser():
     util.create_news_site()
+    # k = 0
 
     while True:
         time_sleep = 150
 
         util.get_minfin()
-        time.sleep(time_sleep)
+        sleep(time_sleep)
 
         util.get_unian()
-        time.sleep(time_sleep)
+        sleep(time_sleep)
 
         util.get_e_pravda()
-        time.sleep(time_sleep)
+        sleep(time_sleep)
 
         util.get_e_sogodni()
-        time.sleep(time_sleep)
+        sleep(time_sleep)
 
         util.get_unn()
-        time.sleep(time_sleep)
+        sleep(time_sleep)
 
         util.get_shlyahta()
-        time.sleep(time_sleep)
+        sleep(time_sleep)
         
         util.get_ukrinform()
-        time.sleep(time_sleep)
+        sleep(time_sleep)
+        """
+        k +=1
+
+        if k >= 1:
+            all_news = News.objects.all()
+            len_all_news = len(all_news)
+            delete_limit = 50
+
+            if len_all_news > delete_limit:
+                news_for_delete = all_news[:(len_all_news-delete_limit)]
+                for i in news_for_delete:
+                    i.delete()
+                    i.save()
+
+            k = 0
+        """
+
 
 # Launch another thread
-x = threading.Thread(target=create_db_and_start_parser, args=(), daemon=True)
+x = Thread(target=create_db_and_start_parser, args=(), daemon=True)
 x.start()
  
 

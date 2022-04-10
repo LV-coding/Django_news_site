@@ -3,7 +3,7 @@ from audioop import maxpp
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 import datetime
-
+from django.utils import timezone
 
 class User(AbstractUser):
     us_id = models.AutoField(primary_key=True)
@@ -23,7 +23,7 @@ class News(models.Model):
     news_site = models.ForeignKey(News_site, on_delete=models.CASCADE, related_name="news_site")
     news_title = models.CharField(max_length=128)
     news_url = models.CharField(max_length=256)
-    add_date = models.DateTimeField(default=datetime.datetime.now)
+    add_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f'{self.news_site}: {self.news_title}'   
@@ -36,7 +36,7 @@ class SaveNews(models.Model):
     save_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
     news_save = models.ForeignKey(News, on_delete=models.CASCADE, related_name="news_save")
-    save_date = models.DateTimeField(default=datetime.datetime.now)
+    save_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f'{self.news_save}'
@@ -48,7 +48,7 @@ class Link(models.Model):
     link_url = models.CharField(max_length=256)
     link_title = models.CharField(max_length=128)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    link_add_date = models.DateTimeField(default=datetime.datetime.now)
+    link_add_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f'{self.user}__{self.link_title}'

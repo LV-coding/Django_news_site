@@ -195,7 +195,7 @@ def get_ukrinform():
                 i = i.find('a')
                 href =f'https://www.ukrinform.ua{i["href"]}'
                 title = i["title"][12:] 
-                if not News.objects.all().filter(news_url=href):
+                if not News.objects.all().filter(news_url=href) and not News.objects.all().filter(news_title=title, news_site=site_name):
                     news = News(news_site=site_name, news_url=href, news_title=title)
                     news.save()
                 else:

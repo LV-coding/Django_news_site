@@ -12,21 +12,36 @@ body {
 }
 
 #cont_title {
-    min-height: 6vh;
-    height: auto;
+    /*min-height: 6vh;*/
+    min-height: 60px;
+    max-height: 80px;
     border-bottom: solid black;
     justify-content: center;
     display: flex;
     flex-wrap: wrap;
+    padding-top: 20px;
 }
 
 .top {
     background-color: black;
+    position: fixed;
+    width: 100%;
+    opacity: 0.75;
 }
 
 body {
     background-color: rgb(207, 206, 206);
 }
+
+.m {
+    padding-top: 100px;
+    background-color: rgb(207, 206, 206); /*same color*/
+}
+
+.advertising-top {
+    padding-top: 60px;
+}
+
 
 .bottom-s {
     background-color: white;
@@ -36,7 +51,7 @@ body {
     padding: 10px;
     padding-left: 25px;
     height: auto;
-    min-height: 88vh;
+    min-height: 66vh; 
 }
 
 .btn {
