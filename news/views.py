@@ -238,10 +238,6 @@ def edit_link(request, link_id):
         return HttpResponseRedirect(reverse("index"))
 
 
-def unknown_page(request, some_text):
-    return render(request,  "news/unknown.html", {
-        "some_text": some_text
-    })
 
 @lru_cache(maxsize=None)
 def date_view(request, date):
@@ -253,9 +249,10 @@ def date_view(request, date):
     })
 
 def site_map(request):
-    return render(request, 'news/site_map.xml')
+    return render(request, 'news/sitemap.xml')
 
-
+def robots(request):
+    return render(request, 'news/robots.txt')
 
 # This function runs in another thread
 def create_db_and_start_parser():

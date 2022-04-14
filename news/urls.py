@@ -17,8 +17,8 @@ urlpatterns = [
     path('delete_link/<int:link_id>', views.delete_link, name="delete_link"),
     path('edit_link/<int:link_id>', views.edit_link, name="edit_link"),
     path('date/<date>', views.date_view, name="date"),
-    path('site_map', views.site_map, name='site_map'),
-    path('<some_text>', views.unknown_page, name="unknown"), 
+    path('sitemap.xml', views.site_map, name='sitemap'),
+    path('robots.txt', views.robots, name='robots')
 ]
 
 
