@@ -252,6 +252,10 @@ def date_view(request, date):
         "date": datetime.date(int(date[:4]), int(date[-5:-3]), int(date[-2:]))
     })
 
+def site_map(request):
+    return render(request, 'news/site_map.xml')
+
+
 
 # This function runs in another thread
 def create_db_and_start_parser():
