@@ -10,7 +10,7 @@
         <td class="table_site">{{ news.news_site }}</td>
         <td>
             {% if user.is_authenticated %} 
-            <a href="{% url 'save' news.news_id %}">[SAVE]</a>
+            <a href="{% url 'save' news.news_id %}" target="_blank">[SAVE]</a>
             {% endif %}
         </td>
         <td class="link-title"><a href="{{ news.news_url }}">{{ news.news_title }}</a></td>

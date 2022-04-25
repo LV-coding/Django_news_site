@@ -2,93 +2,81 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5289030048295319"
-     crossorigin="anonymous"></script>
-        <meta charset="UTF-8">
-        <meta name="google-site-verification" content="5kMFviAapyU2v20MfwX_8AbdxUcQMTHJfbW_P3-1--s" />
-        <title>
-            Новини
-        </title>
-        <link href="{% static 'news/static2.css' %}" rel="stylesheet">
-        <link rel="shortcut icon" href="{% static 'news/announcements-icon.png' %}">
-    </head>
-    <body>
-        <div class="top">
-            <div class="logged_name">
-                {% if user.is_authenticated %}
-                    {% if request.user.is_superuser %}
-                    <a href="{% url 'update' %}">Позачергово оновити дані</a>
-                    {% else %}
-                    {% endif %}
-                 Ви залоговані як "{{ request.user }}".
-                {% else %}
-                Ви поки не залоговані...
-                {% endif %}
-            </div>
 
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5289030048295319"
+        crossorigin="anonymous"></script>
+    <meta name="google-site-verification" content="5kMFviAapyU2v20MfwX_8AbdxUcQMTHJfbW_P3-1--s" />
 
+    <meta charset="UTF-8">
 
-            <div id="cont_title">
-                <div class="link"><a href="{% url 'index' %}" class="link2"> Новини</a></div>
-                <div class="link"><a href="{% url 'currency' %}" class="link2"> Валюта</a></div>
-                <div class="link"><a href="{% url 'savednews' %}" class="link2"> Збережено</a></div>
-                
-                {% if request.user.is_superuser %}
-                <div class="link"><a href="{% url 'mylinks' %}" class="link2"> Мої посилання</a></div>
-                {% else %}
-                {% endif %}
+    <meta name="author" content="LV-coding">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Економічні новини України з різних джерел та зручним пошуком...">
 
-                {% if user.is_authenticated %}
-                <div class="link"><a href="{% url 'logout' %}" class="link2"> Вийти</a></div>
-                {% else %}
-                <div class="link"><a href="{% url 'login' %}" class="link2"> Авторизація</a></div>
-                <div class="link"><a href="{% url 'register' %}" class="link2"> Реєстрація</a></div>
-                {% endif %}
-                <div class="link"><a href="{% url 'about' %}" class="link2"> Про цей проєкт</a></div>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-                <div class="search"> 
-                    
-                    <form method="get" action="{% url 'search' %}">
-                        <input type="text" name="q" placeholder="Приклад пошуку: слово1, слово2, слово3, ..." minlength="2" required  class="searchform">
-                        <input type="submit" value="Пошук" class="button-search">
-                    </form>
-                </div>
-            </div>
+    <title>
+        Новини
+    </title>
+
+    <link href="{% static 'news/static2.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'news/announcements-icon.png' %}">
+
+</head>
+
+<body>
+    <div class="top">
+        <div class="logged_name">
+            {% if user.is_authenticated %}
+            {% if request.user.is_superuser %}
+            <a href="{% url 'update' %}">Позачергово оновити дані</a>
+            {% else %}
+            {% endif %}
+            Ви залоговані як "{{ request.user }}".
+            {% else %}
+            Ви поки не залоговані...
+            {% endif %}
         </div>
 
-        <div class="m"></div>
 
 
-        <div class="bottom-s">
-            {% block body %}
-            {% endblock %}
+        <div id="cont_title">
+            <div class="link"><a href="{% url 'index' %}" class="link2"> Новини</a></div>
+            <div class="link"><a href="{% url 'currency' %}" class="link2"> Валюта</a></div>
+            <div class="link"><a href="{% url 'savednews' %}" class="link2"> Збережено</a></div>
+
+            {% if request.user.is_superuser %}
+            <div class="link"><a href="{% url 'mylinks' %}" class="link2"> Мої посилання</a></div>
+            {% else %}
+            {% endif %}
+
+            {% if user.is_authenticated %}
+            <div class="link"><a href="{% url 'logout' %}" class="link2"> Вийти</a></div>
+            {% else %}
+            <div class="link"><a href="{% url 'login' %}" class="link2"> Авторизація</a></div>
+            <div class="link"><a href="{% url 'register' %}" class="link2"> Реєстрація</a></div>
+            {% endif %}
+            <div class="link"><a href="{% url 'about' %}" class="link2"> Про цей проєкт</a></div>
+
+            <div class="search">
+
+                <form method="get" action="{% url 'search' %}">
+                    <input type="text" name="q" placeholder="Приклад пошуку: слово1, слово2, слово3, ..." minlength="2"
+                        required class="searchform">
+                    <input type="submit" value="Пошук" class="button-search">
+                </form>
+            </div>
         </div>
+    </div>
 
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5289030048295319"
-            crossorigin="anonymous"></script>
-            <!-- Блок_1 -->
-            <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-5289030048295319"
-            data-ad-slot="8307744550"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-            <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+    <div class="m"></div>
 
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5289030048295319"
-            crossorigin="anonymous"></script>
-            <!-- Блок_2 -->
-            <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-5289030048295319"
-            data-ad-slot="7207373737"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-            <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-    </body>
+
+    <div class="bottom-s">
+        {% block body %}
+        {% endblock %}
+    </div>
+</body>
+
 </html>

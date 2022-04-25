@@ -21,7 +21,7 @@
         <td> |</td>
         <td><a href="{% url 'edit_link' link.link_id %}">[EDIT]</a></td>
         <td> Назва:</td>
-        <td><a href="{{ link.link_url }}">{{ link.link_title }}</a></td>
+        <td><a href="{{ link.link_url }}" target="_blank">{{ link.link_title }}</a></td>
     </tr>
     {% empty %}
     Збережені посилання відсутні.

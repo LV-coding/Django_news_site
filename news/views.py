@@ -248,8 +248,6 @@ def date_view(request, date):
         "date": datetime.date(int(date[:4]), int(date[-5:-3]), int(date[-2:]))
     })
 
-def site_map(request):
-    return render(request, 'news/sitemap.xml')
 
 def robots(request):
     return render(request, 'news/robots.txt')
@@ -257,7 +255,7 @@ def robots(request):
 # This function runs in another thread
 def create_db_and_start_parser():
     util.create_news_site()
-    # k = 0
+    k = 0                       # use for delete old news
 
     while True:
         time_sleep = 150
@@ -282,22 +280,19 @@ def create_db_and_start_parser():
         
         util.get_ukrinform()
         sleep(time_sleep)
-        """
+
         k +=1
-
-        if k >= 1:
+        if k >= 20:
             all_news = News.objects.all()
-            len_all_news = len(all_news)
-            delete_limit = 50
 
-            if len_all_news > delete_limit:
-                news_for_delete = all_news[:(len_all_news-delete_limit)]
-                for i in news_for_delete:
-                    i.delete()
-                    i.save()
-
+            for news in all_news:
+                if news.check_old_date():
+                    news.delete()
+                else:
+                    break
             k = 0
-        """
+
+
 
 
 # Launch another thread

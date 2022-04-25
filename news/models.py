@@ -2,7 +2,7 @@ from ast import Delete
 from audioop import maxpp
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-import datetime
+from datetime import timedelta
 from django.utils import timezone
 
 class User(AbstractUser):
@@ -30,6 +30,14 @@ class News(models.Model):
 
     def show_date(self):
         return self.add_date.strftime('%Y-%m-%d')
+
+    def check_old_date(self):                               # use for delete old news
+        storage_days_limit = timedelta(days=45)
+        today = timezone.now()
+        if (today - self.add_date) > storage_days_limit:
+            return True
+        else:
+            return False
 
 
 class SaveNews(models.Model):

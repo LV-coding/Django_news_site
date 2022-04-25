@@ -1,5 +1,11 @@
 from django.urls import path
 from . import views
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import StaticSitemap
+
+sitemaps = {
+    'static':StaticSitemap
+}
 
 urlpatterns = [
     path('', views.index, name="index" ),
@@ -14,11 +20,11 @@ urlpatterns = [
     path('search/', views.search, name="search"),
     path('currency', views.currency, name="currency"),
     path('mylinks', views.saved_links, name="mylinks"),
-    path('delete_link/<int:link_id>', views.delete_link, name="delete_link"),
-    path('edit_link/<int:link_id>', views.edit_link, name="edit_link"),
+    path('mylinks/<int:link_id>/delete_link', views.delete_link, name="delete_link"),
+    path('mylinks/<int:link_id>/edit_link', views.edit_link, name="edit_link"),
     path('date/<date>', views.date_view, name="date"),
-    path('sitemap.xml', views.site_map, name='sitemap'),
-    path('robots.txt', views.robots, name='robots')
+    path('robots.txt', views.robots, name='robots'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
 ]
 
 
